@@ -1,0 +1,19 @@
+<app-card-container>
+  <div class="onboarding_logo_container">
+    <mat-icon class="onboarding_logo_image" fontIcon="attach_money"></mat-icon>
+    <h1>Finance App</h1>
+  </div>
+
+  <p class="onboarding_description">
+    Bem-vindo ao Finance App, sua plataforma de gerenciamento financeiro. Aqui
+    você pode controlar suas finanças de forma simples e eficiente. Faça login
+    ou crie uma conta para começar a usar nossos recursos.
+  </p>
+
+  <div class="onboarding_links_container">
+    <a class="onboarding_login" [routerLink]="['/auth/login']"> Iniciar </a>
+    <a class="onboarding_register" [routerLink]="['/auth/register']"
+      >Cadastre-se
+    </a>
+  </div>
+</app-card-container>

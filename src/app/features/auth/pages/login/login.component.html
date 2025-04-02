@@ -1,0 +1,37 @@
+<app-card-container>
+  <app-loginFormTitle
+    [title]="'Entre com suas credencias'"
+  ></app-loginFormTitle>
+  <form
+    [formGroup]="loginFormGroup"
+    class="form_container"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field class="input_email">
+      <mat-label>Email</mat-label>
+      <input formControlName="email" matInput type="text" />
+    </mat-form-field>
+
+    <mat-form-field class="input_password">
+      <mat-label>Senha</mat-label>
+      <input
+        matInput
+        formControlName="password"
+        [type]="hide ? 'password' : 'text'"
+      />
+      <button
+        class="show_password_btn"
+        mat-icon-button
+        matSuffix
+        (click)="showPassword()"
+        type="button"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button class="login_button">
+      Login
+    </button>
+  </form>
+</app-card-container>

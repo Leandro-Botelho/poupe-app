@@ -1,0 +1,27 @@
+<app-card-container>
+  <app-loginFormTitle
+    [title]="'Registre-se para continuar'"
+  ></app-loginFormTitle>
+
+  <form class="form_container" (ngSubmit)="onSubmit()">
+    <mat-form-field class="input_email">
+      <mat-label>Email</mat-label>
+      <input matInput type="text" />
+    </mat-form-field>
+
+    <mat-form-field class="input_password">
+      <mat-label>Senha</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" />
+      <button
+        class="show_password_btn"
+        mat-icon-button
+        matSuffix
+        (click)="showPassword()"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button class="register_button">Cadastrar</button>
+  </form>
+</app-card-container>
