@@ -1,15 +1,25 @@
-<app-card-container>
-  <app-loginFormTitle
-    [title]="'Entre com suas credencias'"
-  ></app-loginFormTitle>
+<app-form-auth
+  buttonText="Entrar"
+  title="Entra na sua conta"
+  routeText="Crie uma"
+  route="/auth/register"
+  redirectText="Não tem uma conta?"
+>
   <form
-    [formGroup]="loginFormGroup"
+    [formGroup]="loginForm.loginFormGroup"
     class="form_container"
     (ngSubmit)="onSubmit()"
   >
     <mat-form-field class="input_email">
       <mat-label>Email</mat-label>
       <input formControlName="email" matInput type="text" />
+
+      <mat-error *ngIf="loginForm.email?.hasError('required')">
+        Email é obrigatório.
+      </mat-error>
+      <mat-error *ngIf="loginForm.email?.hasError('email')">
+        Email inválido.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="input_password">
@@ -28,10 +38,15 @@
       >
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
+
+      <mat-error *ngIf="loginForm?.password?.hasError('required')">
+        Senha é obrigatória.
+      </mat-error>
+      <mat-error *ngIf="loginForm?.password?.hasError('minlength')">
+        Mínimo de 5 caracteres.
+      </mat-error>
     </mat-form-field>
 
-    <button class="login_button">
-      Login
-    </button>
+    <button type="submit" class="btn_form">Entrar</button>
   </form>
-</app-card-container>
+</app-form-auth>

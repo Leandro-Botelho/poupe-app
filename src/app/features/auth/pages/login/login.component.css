@@ -22,13 +22,13 @@
 }
 
 .mat-mdc-form-field {
-  width: 60%;
+  width: 100%;
 }
 
 .login_button {
   background-color: var(--secondary-color);
   color: #fff;
-  width: 60%;
+  width: 100%;
   padding: 0.875rem;
   border-radius: 0.5rem;
   font-size: 1.25rem;

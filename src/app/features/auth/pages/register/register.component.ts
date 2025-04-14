@@ -1,12 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+} from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { CardContainerComponent } from '../../components/card-container/card-container.component';
 import { LoginFormTitleComponent } from '../../components/loginFormTitle/loginFormTitle.component';
+import { RegisterValidatorService } from './service/registerValidator.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideNativeDateAdapter } from '@angular/material/core';
+import { FormAuthComponent } from '../../components/form-auth/form-auth.component';
 
 @Component({
   selector: 'app-register',
@@ -17,18 +25,34 @@ import { LoginFormTitleComponent } from '../../components/loginFormTitle/loginFo
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
-    CardContainerComponent,
     MatIconModule,
     MatButtonModule,
-    LoginFormTitleComponent,
+    MatDatepickerModule,
+    FormAuthComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [provideNativeDateAdapter()],
 })
-export class RegisterComponent {
-  hide = false;
+export class RegisterComponent implements OnInit {
+  hide = true;
 
-  onSubmit(): void {}
+  constructor(
+    private readonly registerValidatorService: RegisterValidatorService
+  ) {}
+
+  ngOnInit(): void {}
+
+  get registerForm() {
+    return this.registerValidatorService;
+  }
+
+  onSubmit(): void {
+    console.log(
+      this.registerValidatorService.registerFormGroup.value.dateOfBirth
+    );
+  }
 
   showPassword() {
     this.hide = !this.hide;

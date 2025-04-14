@@ -1,0 +1,9 @@
+:host {
+  padding: 0 1.25rem;
+}
+
+.account_balance_icon {
+  background-color: black;
+  border-radius: 6px;
+  padding: 12px;
+}

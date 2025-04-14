@@ -1,19 +1,25 @@
-<app-card-container>
+<div class="onboarding_box">
   <div class="onboarding_logo_container">
-    <mat-icon class="onboarding_logo_image" fontIcon="attach_money"></mat-icon>
-    <h1>Finance App</h1>
+    <app-logo [width]="32" />
+    <h1>Poupe +</h1>
   </div>
 
-  <p class="onboarding_description">
-    Bem-vindo ao Finance App, sua plataforma de gerenciamento financeiro. Aqui
-    você pode controlar suas finanças de forma simples e eficiente. Faça login
-    ou crie uma conta para começar a usar nossos recursos.
-  </p>
+  <div class="onboarding_description_container">
+    <h2>Bem-vindo(a)</h2>
+    <p class="onboarding_description">
+      Bem-vindo ao Poupe +, sua plataforma de gerenciamento financeiro. Aqui
+      você pode controlar suas finanças de forma simples e eficiente. Faça login
+      ou crie uma conta para começar a usar nossos recursos.
+    </p>
+  </div>
 
-  <div class="onboarding_links_container">
-    <a class="onboarding_login" [routerLink]="['/auth/login']"> Iniciar </a>
-    <a class="onboarding_register" [routerLink]="['/auth/register']"
+  <div class="onboarding_form_links_container">
+    <a [routerLink]="['/auth/login']" class="btn_form">
+      Iniciar
+    </a>
+
+    <a [routerLink]="['/auth/register']" class="btn_form"
       >Cadastre-se
     </a>
   </div>
-</app-card-container>
+</div>

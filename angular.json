@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "finance-app": {
+    "poupe-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/finance-app",
+            "outputPath": "dist/poupe-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -21,8 +21,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "src/app/assets",
-                "output": "assets"
+                "input": "public"
               }
             ],
             "styles": [
@@ -59,10 +58,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "finance-app:build:production"
+              "buildTarget": "poupe-app:build:production"
             },
             "development": {
-              "buildTarget": "finance-app:build:development"
+              "buildTarget": "poupe-app:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -78,8 +77,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "src/app/assets",
-                "output": "assets"
+                "input": "public"
               }
             ],
             "styles": [

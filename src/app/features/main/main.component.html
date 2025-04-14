@@ -1,0 +1,35 @@
+<header class="main_header">
+  <div class="main_header_information">
+    <div class="main_logo_container">
+      <div class="main_logo_image">
+        <mat-icon fontIcon="attach_money"></mat-icon>
+      </div>
+      <h1 class="main_logo_title">Poupe +</h1>
+    </div>
+
+    <nav class="main_nav">
+      <ul class="main_links_container">
+        <li class="main_link">
+          <a routerLink="/main" routerLinkActive="active"
+            >Dashboard</a
+          >
+        </li>
+
+        <li class="main_link">
+          <a routerLink="/main/transactions" routerLinkActive="active"
+            >Transações</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="main_user_menu">
+    <button mat-button [matMenuTriggerFor]="menu">LB</button>
+    <mat-menu #menu="matMenu">
+      <button (click)="handleLogout()" mat-menu-item>Sair</button>
+    </mat-menu>
+  </div>
+</header>
+
+<router-outlet></router-outlet>

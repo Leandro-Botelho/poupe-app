@@ -1,17 +1,72 @@
-<app-card-container>
-  <app-loginFormTitle
-    [title]="'Registre-se para continuar'"
-  ></app-loginFormTitle>
-
-  <form class="form_container" (ngSubmit)="onSubmit()">
-    <mat-form-field class="input_email">
+<app-form-auth
+  title="Crie sua conta"
+  routeText="Entrar"
+  route="/auth/login"
+  redirectText="Já tem uma conta?"
+>
+  <form
+    class="form_container"
+    [formGroup]="registerForm.registerFormGroup"
+    (ngSubmit)="onSubmit()"
+  >
+    <mat-form-field>
       <mat-label>Email</mat-label>
-      <input matInput type="text" />
+      <input
+        class="input_email"
+        matInput
+        formControlName="email"
+        type="email"
+      />
+      <mat-error *ngIf="registerForm.email?.hasError('required')">
+        Email é obrigatório.
+      </mat-error>
+      <mat-error *ngIf="registerForm.email?.hasError('email')">
+        Email inválido.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Nome</mat-label>
+      <input class="input_name" matInput formControlName="name" />
+
+      <mat-error *ngIf="registerForm.name?.hasError('required')">
+        Nome é obrigatório.
+      </mat-error>
+      <mat-error *ngIf="registerForm.name?.hasError('minlength')">
+        Mínimo de 5 caracteres.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Data de nascimento</mat-label>
+      <input
+        formControlName="dateOfBirth"
+        matInput
+        [matDatepicker]="picker"
+        placeholder="DD/MM/YYYY"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+
+      <mat-error *ngIf="registerForm.dateOfBirth?.hasError('required')">
+        Data de nascimento é obrigatório.
+      </mat-error>
+
+      <mat-error *ngIf="registerForm.dateOfBirth?.hasError('underage')">
+        Você precisa ter pelo menos 18 anos.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="input_password">
       <mat-label>Senha</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" />
+      <input
+        formControlName="password"
+        matInput
+        [type]="hide ? 'password' : 'text'"
+      />
       <button
         class="show_password_btn"
         mat-icon-button
@@ -20,8 +75,15 @@
       >
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
+
+      <mat-error *ngIf="registerForm.password?.hasError('required')">
+        Senha é obrigatória.
+      </mat-error>
+      <mat-error *ngIf="registerForm.password?.hasError('minlength')">
+        Mínimo de 5 caracteres.
+      </mat-error>
     </mat-form-field>
 
-    <button class="register_button">Cadastrar</button>
+    <button type="submit" class="btn_form">Cadastrar</button>
   </form>
-</app-card-container>
+</app-form-auth>

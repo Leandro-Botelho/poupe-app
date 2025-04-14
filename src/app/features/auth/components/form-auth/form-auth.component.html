@@ -1,0 +1,10 @@
+<div class="form_auth_box">
+  <h2 class="form_title">{{ title }}</h2>
+
+  <ng-content #form> </ng-content>
+
+  <p class="form_redirect_actions">
+    {{ redirectText }}
+    <a [routerLink]="route">{{ routeText }}.</a>
+  </p>
+</div>
