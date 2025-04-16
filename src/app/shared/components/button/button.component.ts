@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -16,4 +16,10 @@ export class ButtonComponent {
   text: string = '';
   @Input()
   variant: 'primary' | 'secondary' = 'primary';
+
+  @Output() click = new EventEmitter<void>();
+
+  handleClick() {
+    this.click.emit();
+  }
 }

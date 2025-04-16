@@ -57,3 +57,7 @@
     background-color: var(--background-color);
   }
 }
+
+.custom-dialog-container{
+  background-color: blue;
+}

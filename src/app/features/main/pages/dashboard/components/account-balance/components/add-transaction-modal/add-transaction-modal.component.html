@@ -1,0 +1,50 @@
+<div class="title">
+  <h3>Adicionar transação</h3>
+  <p>Insira as informações abaixo!</p>
+</div>
+
+<form class="add_transaction_form">
+  <mat-form-field>
+    <mat-label>Título</mat-label>
+    <input matInput />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Valor</mat-label>
+    <input matInput />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Tipo de transação</mat-label>
+    <mat-select>
+      @for (transaction of transactions; track transaction) {
+      <mat-option [value]="transaction.value">{{
+        transaction.viewValue
+      }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Método de pagamento</mat-label>
+    <mat-select>
+      @for (type of paymentTypes; track type) {
+      <mat-option [value]="type.value">{{ type.viewValue }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Data da transação</mat-label>
+    <input matInput />
+  </mat-form-field>
+</form>
+
+<div class="buttons_container">
+  <app-button
+    (click)="dialogRef.close()"
+    variant="secondary"
+    text="Cancelar"
+  ></app-button>
+  <app-button text="Adicionar"></app-button>
+</div>

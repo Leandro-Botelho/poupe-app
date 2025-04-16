@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { CardAccountDetailsComponent } from '../../../../shared/components/card-account-details/card-account-details.component';
 import { ExpenseChartComponent } from './components/expense-chart/expense-chart.component';
 import { CategoryExpensesComponent } from './components/category-expenses/category-expenses.component';
 import { TransactionsListComponent } from './components/transactions-list/transactions-list.component';
