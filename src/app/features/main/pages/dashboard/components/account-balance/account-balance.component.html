@@ -1,0 +1,24 @@
+<div class="balance_title_container">
+  <div class="balance_icon">
+    <mat-icon fontIcon="account_balance_wallet"></mat-icon>
+  </div>
+  <p class="balance_title_container_text">Saldo</p>
+</div>
+
+<div class="account_balance_details_container">
+  <div class="account_balance_amount">
+    <p class="amount_text">
+      <app-format-currency [amount]="1274" />
+    </p>
+
+    <div class="show_amount">
+      <mat-icon (click)="showBalance()">{{
+        showAccountBalance ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </div>
+  </div>
+
+  <app-button text="Adicionar transação">
+    <mat-icon fontIcon="compare_arrows" style="rotate: 90deg"></mat-icon>
+  </app-button>
+</div>

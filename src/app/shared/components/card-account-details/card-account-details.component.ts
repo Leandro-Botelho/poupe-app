@@ -7,6 +7,7 @@ import {
   OnInit,
 } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
+import { FormatCurrencyComponent } from '../format-currency/format-currency.component';
 
 registerLocaleData(localePt, 'pt-br');
 
@@ -14,17 +15,7 @@ registerLocaleData(localePt, 'pt-br');
   selector: 'app-card-account-details',
   templateUrl: './card-account-details.component.html',
   styleUrls: ['./card-account-details.component.css'],
-  providers: [
-    {
-      provide: LOCALE_ID,
-      useValue: 'pt-br',
-    },
-    {
-      provide: DEFAULT_CURRENCY_CODE,
-      useValue: 'BRL',
-    },
-  ],
-  imports: [CurrencyPipe],
+  imports: [FormatCurrencyComponent],
   standalone: true,
 })
 export class CardAccountDetailsComponent {

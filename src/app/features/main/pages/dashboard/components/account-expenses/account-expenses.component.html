@@ -1,0 +1,23 @@
+<div class="first_card_account_details_box">
+  <app-card-account-details [amount]="3500" [title]="'Investido'">
+    <div class="card_icon_box investment">
+      <mat-icon #icon fontIcon="attach_money"></mat-icon>
+    </div>
+  </app-card-account-details>
+</div>
+
+<div class="second_account_details_box">
+  <app-card-account-details [amount]="8000" [title]="'Receita'">
+    <div class="card_icon_box gain">
+      <mat-icon #icon fontIcon="trending_up"></mat-icon>
+    </div>
+  </app-card-account-details>
+
+  <app-card-account-details [amount]="10000" [title]="'Despesas'">
+    <div class="card_icon_box expenses">
+      <mat-icon #icon fontIcon="trending_down"></mat-icon>
+    </div>
+  </app-card-account-details>
+</div>
+
+<!-- account_details_box -->

@@ -1,0 +1,59 @@
+:host {
+  background-color: var(--secondary-color);
+  border: 1px solid rgba(255, 255, 255, 0.068);
+  padding: 1.75rem 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  grid-column: span 2;
+  width: 100%;
+}
+
+.balance_title_container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.balance_title_container_text {
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+.balance_icon {
+  background-color: var(--background-color);
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.account_balance_details_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.account_balance_amount {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.amount_text {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.show_amount {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: var(--background-color);
+  }
+}

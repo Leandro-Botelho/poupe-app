@@ -3,4 +3,6 @@
   <p class="card_title_text">{{ title }}</p>
 </div>
 
-<p>{{ amount | currency : "BRL" }}</p>
+<p class="amount">
+  <app-format-currency [amount]="amount" />
+</p>

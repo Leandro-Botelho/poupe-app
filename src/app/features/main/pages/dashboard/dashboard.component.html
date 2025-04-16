@@ -18,56 +18,9 @@
 
 <main class="dashboard_main">
   <div class="account_information_container">
-    <div class="account_balance_container">
-      <div class="balance_title_container">
-        <div class="balance_icon">
-          <mat-icon fontIcon="account_balance_wallet"></mat-icon>
-        </div>
-        <p class="balance_title_container_text">Saldo</p>
-      </div>
+    <app-account-balance></app-account-balance>
 
-      <div class="account_balance_details_container">
-        <div class="account_balance_amount">
-          <p class="amount_text">
-            {{ 2700 | currency : "BRL" }}
-          </p>
-
-          <div class="show_amount">
-            <mat-icon (click)="showBalance()">{{
-              showAccountBalance ? "visibility_off" : "visibility"
-            }}</mat-icon>
-          </div>
-        </div>
-
-        <app-button text="Adicionar transação">
-          <mat-icon fontIcon="compare_arrows" style="rotate: 90deg"></mat-icon>
-        </app-button>
-      </div>
-    </div>
-
-    <div class="account_details_box">
-      <div class="first_account_details_box">
-        <app-card-account-details [amount]="3500" [title]="'Investido'">
-          <div class="card_icon_box">
-            <mat-icon #icon fontIcon="attach_money"></mat-icon>
-          </div>
-        </app-card-account-details>
-      </div>
-
-      <div class="second_account_details_box">
-        <app-card-account-details [amount]="8000" [title]="'Receita'">
-          <div class="card_icon_box gain">
-            <mat-icon #icon fontIcon="trending_up"></mat-icon>
-          </div>
-        </app-card-account-details>
-
-        <app-card-account-details [amount]="10000" [title]="'Despesas'">
-          <div class="card_icon_box expenses">
-            <mat-icon #icon fontIcon="trending_down"></mat-icon>
-          </div>
-        </app-card-account-details>
-      </div>
-    </div>
+    <app-account-expenses></app-account-expenses>
 
     <div class="account_graphics_container">
       <app-expense-chart></app-expense-chart>

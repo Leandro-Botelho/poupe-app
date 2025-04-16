@@ -22,7 +22,7 @@ export class ExpenseChartComponent {
       label: 'Gastos',
       value: 20,
       color: '#e93030',
-      class: 'expense',
+      class: 'expenses',
       icon: 'trending_down',
     },
     {

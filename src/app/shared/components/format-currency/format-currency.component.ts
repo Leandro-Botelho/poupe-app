@@ -1,4 +1,3 @@
-import { CurrencyPipe, registerLocaleData } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -7,13 +6,13 @@ import {
   LOCALE_ID,
 } from '@angular/core';
 import localePt from '@angular/common/locales/pt';
+import { CurrencyPipe, registerLocaleData } from '@angular/common';
 
 registerLocaleData(localePt, 'pt-br');
 
 @Component({
-  selector: 'app-expense-graphic',
-  templateUrl: './expense-graphic.component.html',
-  styleUrls: ['./expense-graphic.component.css'],
+  selector: 'app-format-currency',
+  template: `{{ amount | currency : 'BRL' }}`,
   standalone: true,
   providers: [
     {
@@ -27,15 +26,7 @@ registerLocaleData(localePt, 'pt-br');
   ],
   imports: [CurrencyPipe],
 })
-export class ExpenseGraphicComponent {
-  @Input({
-    required: true,
-  })
-  title: string = '';
-  @Input({
-    required: true,
-  })
-  value: number = 0;
+export class FormatCurrencyComponent {
   @Input({
     required: true,
   })
