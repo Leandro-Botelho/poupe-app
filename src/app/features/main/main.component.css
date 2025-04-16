@@ -63,17 +63,17 @@
   list-style-type: none;
 
   a {
-    color: #71717a;
+    color: var(--light-gray-color);
     text-decoration: none;
     transition: all 0.3s ease-in-out;
     &:hover {
-      color: var(--secondary-color);
+      color: var(--blue-color);
     }
   }
 }
 
 .main_user_menu {
-  border: 1px solid #71717a;
+  border: 1px solid var(--gray-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -83,7 +83,7 @@
   transition: all 0.3s ease-in-out;
 
   &:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--blue-color);
   }
 
   button {

@@ -1,0 +1,9 @@
+<button
+  class="app_button"
+  [ngClass]="
+    variant === 'primary' ? 'app_button_primary' : 'app_button_secondary'
+  "
+>
+  {{ text }}
+  <ng-content #children></ng-content>
+</button>

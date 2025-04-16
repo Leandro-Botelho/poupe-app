@@ -1,0 +1,10 @@
+<div class="expense_title_container">
+  <p class="expense_category">{{ title }}</p>
+  <p class="expense_percentage">{{ value }}%</p>
+</div>
+
+<div class="expense_graphic">
+  <div class="bar-fill" [style.width.%]="value"></div>
+</div>
+
+<p class="expense_amount">{{ amount | currency : "BRL" }}</p>

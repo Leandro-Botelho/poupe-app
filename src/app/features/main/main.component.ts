@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../../shared/service/auth/auth.service';
+import { LogoComponent } from "../../shared/components/logo/logo.component";
 
 @Component({
   selector: 'app-main',
@@ -16,7 +17,8 @@ import { AuthService } from '../../shared/service/auth/auth.service';
     RouterLink,
     MatButtonModule,
     MatMenuModule,
-  ],
+    LogoComponent,
+],
 })
 export class MainComponent implements OnInit {
   constructor(private readonly authService: AuthService) {}

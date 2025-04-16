@@ -1,0 +1,67 @@
+:host {
+  flex: 1;
+
+  h3 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-color);
+    padding-bottom: 1.5rem;
+
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+.transactions_list {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+}
+
+.transactions_details__icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+
+.transactions_details {
+  display: flex;
+  gap: 1rem;
+}
+
+.transactions_info {
+  display: flex;
+  flex-direction: column;
+
+  p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  span {
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--gray-color);
+  }
+}
+
+.amount {
+  font-weight: 700;
+}
+
+.received {
+  color: var(--green-color);
+}
+
+.loss {
+  color: var(--red-color);
+}
+
+.default {
+  color: var(--text-color);
+}

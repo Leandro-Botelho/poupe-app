@@ -1,15 +1,15 @@
 @import url("./app/assets/fonts/fonts.css");
 
 :root {
-  --background-color: #0F0E11;
+  --background-color: #0f0e11;
   --secondary-color: #19191a;
-  --blue-color: #6B7FD7;
-  --green-color: #39BE00;
-  --red-color: #E93030;
-  --gray-color: #71717A
-  --light-gray-color: #B8B8B8;
+  --blue-color: #6b7fd7;
+  --green-color: #39be00;
+  --red-color: #e93030;
+  --gray-color: #71717a;
+  --light-gray-color: #b8b8b8;
   --text-color: #fff;
-  --border-color: #26272B;
+  --border-color: #333437;
 }
 
 * {
@@ -28,21 +28,69 @@ body {
   color: #fff;
 }
 
-.btn_form{
+.btn_form {
   width: 100%;
   padding: 1rem;
   border-radius: 12px;
   background-color: var(--blue-color);
   text-transform: uppercase;
   text-decoration: none;
-  text-align:center;
+  text-align: center;
   color: var(--text-color);
   transition: all 0.3s ease-in-out;
   border: none;
   outline: none;
 
   &:hover {
-    opacity: .8;
+    opacity: 0.8;
+  }
+}
 
+.dashboard_main_title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.investment {
+  background-color: var(--secondary-color);
+}
+
+.gain {
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(57, 190, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1;
+  }
+
+  .mat-icon {
+    position: relative;
+    z-index: 2;
+    color: var(--green-color);
+  }
+}
+
+.expenses {
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(233, 48, 48, 0.2);
+    border-radius: 8px;
+    z-index: 1;
+  }
+
+  .mat-icon {
+    position: relative;
+    z-index: 2;
+    color: var(--red-color);
   }
 }

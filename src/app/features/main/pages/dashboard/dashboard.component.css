@@ -1,9 +1,133 @@
 :host {
-  padding: 0 1.25rem;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.account_balance_icon {
-  background-color: black;
+.dashboard_main {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.dashboard_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.account_information_container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.account_details_box {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+}
+
+.second_account_details_box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.mat-mdc-menu-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  border: 1px solid var(--gray-color);
   border-radius: 6px;
-  padding: 12px;
+  padding: 0.5rem;
+  width: 140px;
+  color: var(--text-color);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.account_balance_container {
+  background-color: var(--secondary-color);
+  border: 1px solid rgba(255, 255, 255, 0.068);
+  padding: 1.75rem 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  grid-column: span 2;
+}
+
+.balance_title_container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.balance_title_container_text {
+  font-size: 1.25rem;
+  color: var(--text-color);
+}
+
+.balance_icon {
+  background-color: var(--background-color);
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.mat-mdc-menu-item {
+  width: 140px;
+}
+
+.account_balance_details_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.account_balance_amount {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.amount_text {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.show_amount {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: var(--background-color);
+  }
+}
+
+.card_icon_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+}
+
+.transactions_container {
+  flex: 1;
+}
+
+.account_graphics_container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
 }

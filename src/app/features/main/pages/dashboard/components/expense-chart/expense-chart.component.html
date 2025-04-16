@@ -1,0 +1,16 @@
+<div class="pie-chart-container">
+  <div class="details"></div>
+  <div class="pie-chart" [style.background]="getConicGradient()"></div>
+</div>
+
+<div class="graphic_container">
+  <div *ngFor="let item of data" class="graphic_details_container">
+    <div class="graphic_information">
+      <div class="graphic_icon_box" [ngClass]="item.class">
+        <mat-icon [fontIcon]="item.icon"></mat-icon>
+      </div>
+      <p class="graphic_text">{{ item.label }}</p>
+    </div>
+    <p class="graphic_percentage">{{ item.value }}%</p>
+  </div>
+</div>
