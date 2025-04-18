@@ -1,14 +1,18 @@
-import { Component, signal } from '@angular/core';
+import { Component, LOCALE_ID, OnInit, signal } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import { SideMenuComponent } from '../../../../shared/components/side-menu/side-menu.component';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
 import { EditTransactionComponent } from './components/edit-transaction/edit-transaction.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { DeleteTransactionComponent } from './components/delete-transaction/delete-transaction.component';
 import { AddTransactionModal } from '../../shared/components/add-transaction-modal/add-transaction-modal.component';
+import { FormatCurrencyComponent } from '../../../../shared/components/format-currency/format-currency.component';
+import localePt from '@angular/common/locales/pt';
+
+registerLocaleData(localePt);
 
 export interface ITransactions {
   name: string;
@@ -70,16 +74,6 @@ const ELEMENT_DATA: ITransactions[] = [
   },
 ];
 
-export const TRANSACTION_COLUMNS = [
-  { key: 'name', label: 'Nome' },
-  { key: 'type', label: 'Tipo' },
-  { key: 'category', label: 'Categoria' },
-  { key: 'method', label: 'Método' },
-  { key: 'date', label: 'Data' },
-  { key: 'value', label: 'Valor' },
-  { key: 'actions', label: 'Ações' },
-];
-
 @Component({
   selector: 'app-transactions',
   standalone: true,
@@ -94,19 +88,37 @@ export const TRANSACTION_COLUMNS = [
     EditTransactionComponent,
     DeleteTransactionComponent,
     AddTransactionModal,
+    FormatCurrencyComponent,
   ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.css',
-  providers: [provideNativeDateAdapter()],
+  providers: [
+    provideNativeDateAdapter(),
+    {
+      provide: LOCALE_ID,
+      useValue: 'pt-BR',
+    },
+  ],
 })
-export class TransactionsComponent {
+export class TransactionsComponent implements OnInit {
   isOpenSideBarMenu = signal(false);
   isOpenDeleteModal = signal(false);
   isOpenAddTransactionModal = signal(false);
 
   dataSource = ELEMENT_DATA;
-  columns = TRANSACTION_COLUMNS;
-  displayedColumns = this.columns.map((col) => col.key);
+  displayedColumns = [
+    'name',
+    'type',
+    'category',
+    'method',
+    'date',
+    'value',
+    'actions',
+  ];
+
+  ngOnInit(): void {
+    console.log(this.dataSource);
+  }
 
   openSideMenu() {
     this.isOpenSideBarMenu.update(() => true);
