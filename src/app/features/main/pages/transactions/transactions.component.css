@@ -1,0 +1,54 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0 1.5rem;
+}
+
+.transactions_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+.mat-mdc-table {
+  background-color: var(--secondary-color);
+}
+
+.mat-mdc-header-row {
+  color: var(--text-color);
+  font-weight: bold;
+  background-color: var(--secondary-color);
+}
+
+.mat-mdc-row {
+  color: var(--text-color);
+  background-color: #0b0b0d;
+}
+
+.action_btn_container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.action_btn {
+  background-color: var(--background-color);
+  border: none;
+  cursor: pointer;
+
+  .mat-icon {
+    color: white;
+  }
+}
+
+.delete {
+  .mat-icon {
+    color: var(--red-color);
+  }
+}
+

@@ -58,6 +58,8 @@
   }
 }
 
-.custom-dialog-container{
-  background-color: blue;
+.hidden_amount {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-color);
 }

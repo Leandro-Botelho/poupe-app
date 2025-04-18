@@ -17,6 +17,9 @@ export class ButtonComponent {
   @Input()
   variant: 'primary' | 'secondary' = 'primary';
 
+  @Input()
+  type: 'button' | 'submit' = 'button';
+
   @Output() click = new EventEmitter<void>();
 
   handleClick() {

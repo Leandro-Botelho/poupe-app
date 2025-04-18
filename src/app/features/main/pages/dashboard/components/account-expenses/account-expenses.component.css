@@ -18,3 +18,11 @@
   height: 42px;
   border-radius: 8px;
 }
+
+@media (max-width: 1024px) {
+  :host {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

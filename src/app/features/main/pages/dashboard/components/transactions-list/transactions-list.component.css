@@ -65,3 +65,15 @@
 .default {
   color: var(--text-color);
 }
+
+@media (max-width: 768px) {
+  :host {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+
+    h3 {
+      border-bottom: none;
+      padding-bottom: 0.5rem;
+    }
+  }
+}

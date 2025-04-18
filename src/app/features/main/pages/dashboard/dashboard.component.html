@@ -2,16 +2,15 @@
   <h1 class="dashboard_main_title">Dashboard</h1>
   <div class="months_menu">
     <button mat-button [matMenuTriggerFor]="menu">
-      Dezembro
+      {{ currentMonth() }}
       <mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
     </button>
     <mat-menu #menu="matMenu" style="background-color: blue">
-      <button mat-menu-item>Janeiro</button>
-      <button mat-menu-item>Fevereiro</button>
-      <button mat-menu-item>Março</button>
-      <button mat-menu-item>Abril</button>
-      <button mat-menu-item>Maio</button>
-      <button mat-menu-item>Junho</button>
+      @for (month of months; track month.value) {
+      <button mat-menu-item (click)="changeMonth(month.value)">
+        {{ month.label }}
+      </button>
+      }
     </mat-menu>
   </div>
 </div>

@@ -1,1 +1,59 @@
-<p>transactions works!</p>
+<div class="transactions_header">
+  <h1>Transações</h1>
+  <app-button text="Adicionar transação" (click)="openAddTransactionModal()">
+    <mat-icon fontIcon="compare_arrows" style="rotate: 90deg"></mat-icon>
+  </app-button>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container *ngFor="let col of columns" [matColumnDef]="col.key">
+    <th mat-header-cell *matHeaderCellDef>{{ col.label }}</th>
+
+    <td mat-cell *matCellDef="let element">
+      <ng-container [ngSwitch]="col.key">
+        <ng-container *ngSwitchDefault>
+          {{ element[col.key] }}
+        </ng-container>
+
+        <div class="action_btn_container" *ngSwitchCase="'actions'">
+          <button
+            class="action_btn delete"
+            mat-icon-button
+            (click)="openDeleteModal()"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+
+          <button class="action_btn" mat-icon-button (click)="openSideMenu()">
+            <mat-icon>mode_edit</mat-icon>
+          </button>
+        </div>
+      </ng-container>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+
+<app-side-menu [isOpen]="isOpenSideBarMenu()" (closed)="closeMenu()">
+  <app-edit-transaction
+    (closeSideBarEvent)="closeMenu()"
+  ></app-edit-transaction>
+</app-side-menu>
+
+<app-modal [isOpen]="isOpenDeleteModal()" (onClose)="closeDeleteModal()">
+  <app-delete-transaction
+    [transactionId]="10"
+    (closeModalEvent)="closeDeleteModal()"
+  ></app-delete-transaction>
+</app-modal>
+
+<app-modal
+  [isOpen]="isOpenAddTransactionModal()"
+  (onClose)="closeAddTransactionModal()"
+>
+  <app-add-transaction-modal
+    (closeModalEvent)="closeAddTransactionModal()"
+  ></app-add-transaction-modal>
+</app-modal>

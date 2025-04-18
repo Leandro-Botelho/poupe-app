@@ -7,18 +7,26 @@
 
 <div class="account_balance_details_container">
   <div class="account_balance_amount">
-    <p class="amount_text">
+    <p class="amount_text" *ngIf="showAccountBalance()">
       <app-format-currency [amount]="1274" />
     </p>
 
+    <p class="hidden_amount" *ngIf="!showAccountBalance()">***</p>
+
     <div class="show_amount">
       <mat-icon (click)="showBalance()">{{
-        showAccountBalance ? "visibility_off" : "visibility"
+        showAccountBalance() ? "visibility_off" : "visibility"
       }}</mat-icon>
     </div>
   </div>
 
-  <app-button text="Adicionar transação" (click)="openDialog()">
+  <app-button text="Adicionar transação" (click)="openModal()">
     <mat-icon fontIcon="compare_arrows" style="rotate: 90deg"></mat-icon>
   </app-button>
 </div>
+
+<app-modal [isOpen]="isOpenModal()" (onClose)="closeModal()">
+  <app-add-transaction-modal
+    (closeModalEvent)="closeModal()"
+  ></app-add-transaction-modal>
+</app-modal>

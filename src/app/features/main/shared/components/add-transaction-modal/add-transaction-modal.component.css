@@ -1,11 +1,9 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   background-color: var(--secondary-color);
   border: none;
-  padding: 1.5rem 2rem;
-  width: 350px;
 }
 
 .title {
@@ -38,5 +36,5 @@
 .add_transaction_form {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
