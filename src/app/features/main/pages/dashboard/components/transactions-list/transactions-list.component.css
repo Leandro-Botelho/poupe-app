@@ -16,7 +16,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 0;
+  padding: 1.5rem 1rem;
+  transition: all 0.3s ease;
+  cursor: pointer ;
+  &:hover {
+    background-color: var(--secondary-color);
+  }
 }
 
 .transactions_details__icon {

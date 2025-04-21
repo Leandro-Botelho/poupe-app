@@ -1,16 +1,27 @@
 <h3>Transações</h3>
 
-<div class="transactions_list">
+@for (transaction of transactions; track transaction.id) {
+<div class="transactions_list" (click)="openSideMenu(transaction)">
   <div class="transactions_details">
     <div class="transactions_details__icon gain">
       <mat-icon #icon fontIcon="attach_money"></mat-icon>
     </div>
 
     <div class="transactions_info">
-      <p>Salário</p>
-      <span>15/11/2024</span>
+      <p>{{ transaction.name }}</p>
+      <span>{{ transaction.date | date : "d MMM y" }}</span>
     </div>
   </div>
 
-  <p class="amount received">+ {{ 3000 | currency }}</p>
+  <p class="amount received">
+    <app-format-currency [amount]="transaction.value" />
+  </p>
 </div>
+
+}
+
+<app-side-menu (closed)="closeSideMenu()" [isOpen]="isOpenSideMenu()">
+  <app-transaction-side-menu
+    [currentTransaction]="currentTransaction()"
+  ></app-transaction-side-menu>
+</app-side-menu>

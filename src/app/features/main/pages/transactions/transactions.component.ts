@@ -11,68 +11,9 @@ import { DeleteTransactionComponent } from './components/delete-transaction/dele
 import { AddTransactionModal } from '../../shared/components/add-transaction-modal/add-transaction-modal.component';
 import { FormatCurrencyComponent } from '../../../../shared/components/format-currency/format-currency.component';
 import localePt from '@angular/common/locales/pt';
+import { TRANSACTIONS_LIST } from '../../../../shared/constants/transactions';
 
 registerLocaleData(localePt);
-
-export interface ITransactions {
-  name: string;
-  type: string;
-  category: string;
-  method: string;
-  date: string;
-  value: number;
-}
-
-const ELEMENT_DATA: ITransactions[] = [
-  {
-    name: 'Salário',
-    type: 'Ganho',
-    category: 'Outros',
-    method: 'Transferência',
-    date: '2023-01-01',
-    value: 3500,
-  },
-  {
-    name: 'Supermercado',
-    type: 'Despesa',
-    category: 'Alimentação',
-    method: 'Cartão de Débito',
-    date: '2023-01-05',
-    value: 320.75,
-  },
-  {
-    name: 'Uber',
-    type: 'Despesa',
-    category: 'Transporte',
-    method: 'Cartão de Crédito',
-    date: '2023-01-08',
-    value: 45.9,
-  },
-  {
-    name: 'Venda de notebook usado',
-    type: 'Ganho',
-    category: 'Venda',
-    method: 'Pix',
-    date: '2023-01-10',
-    value: 1200,
-  },
-  {
-    name: 'Conta de luz',
-    type: 'Despesa',
-    category: 'Moradia',
-    method: 'Boleto',
-    date: '2023-01-15',
-    value: 189.3,
-  },
-  {
-    name: 'Curso de programação',
-    type: 'Despesa',
-    category: 'Educação',
-    method: 'Transferência',
-    date: '2023-01-20',
-    value: 497,
-  },
-];
 
 @Component({
   selector: 'app-transactions',
@@ -105,7 +46,7 @@ export class TransactionsComponent implements OnInit {
   isOpenDeleteModal = signal(false);
   isOpenAddTransactionModal = signal(false);
 
-  dataSource = ELEMENT_DATA;
+  dataSource = TRANSACTIONS_LIST;
   displayedColumns = [
     'name',
     'type',

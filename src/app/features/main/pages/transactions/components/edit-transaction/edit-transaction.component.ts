@@ -6,10 +6,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from '../../../../../../shared/components/button/button.component';
-import { CATEGORIES } from '../../../../../../shared/constants/categories-combo';
-import { TRANSACTIONS } from '../../../../../../shared/constants/transactions-combo';
 import { PAYMENT_TYPES } from '../../../../../../shared/constants/paymentTypes-combo';
 import { TransactionValidatorService } from '../../../../shared/service/transactionValidator.service';
+import { CATEGORIES_COMBO } from '../../../../../../shared/constants/categories-combo';
+import { TRANSACTIONS_COMBO } from '../../../../../../shared/constants/transactions-combo';
 
 @Component({
   selector: 'app-edit-transaction',
@@ -29,8 +29,8 @@ import { TransactionValidatorService } from '../../../../shared/service/transact
   standalone: true,
 })
 export class EditTransactionComponent implements OnInit {
-  categories = CATEGORIES;
-  transactions = TRANSACTIONS;
+  categories = CATEGORIES_COMBO;
+  transactions = TRANSACTIONS_COMBO;
   paymentTypes = PAYMENT_TYPES;
 
   @Output() closeSideBarEvent = new EventEmitter<void>();

@@ -8,10 +8,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ButtonComponent } from '../../../../../shared/components/button/button.component';
 import { AddTransactionService } from '../../../pages/dashboard/components/account-balance/service/addTransaction.service';
-import { CATEGORIES } from '../../../../../shared/constants/categories-combo';
-import { TRANSACTIONS } from '../../../../../shared/constants/transactions-combo';
 import { PAYMENT_TYPES } from '../../../../../shared/constants/paymentTypes-combo';
 import { TransactionValidatorService } from '../../service/transactionValidator.service';
+import { CATEGORIES_COMBO } from '../../../../../shared/constants/categories-combo';
+import { TRANSACTIONS_COMBO } from '../../../../../shared/constants/transactions-combo';
 
 @Component({
   selector: 'app-add-transaction-modal',
@@ -32,8 +32,8 @@ import { TransactionValidatorService } from '../../service/transactionValidator.
   providers: [provideNativeDateAdapter()],
 })
 export class AddTransactionModal implements OnInit {
-  categories = CATEGORIES;
-  transactions = TRANSACTIONS;
+  categories = CATEGORIES_COMBO;
+  transactions = TRANSACTIONS_COMBO;
   paymentTypes = PAYMENT_TYPES;
 
   @Output() closeModalEvent = new EventEmitter<void>();

@@ -1,0 +1,58 @@
+import { ITransactions } from '../interface/transactions.interface';
+
+export const TRANSACTIONS_LIST: ITransactions[] = [
+  {
+    id: 1,
+    name: 'Salário',
+    type: 'Ganho',
+    category: 'Outros',
+    method: 'Transferência',
+    date: '2023-01-01',
+    value: 3500,
+  },
+  {
+    id: 2,
+    name: 'Supermercado',
+    type: 'Despesa',
+    category: 'Alimentação',
+    method: 'Cartão de Débito',
+    date: '2023-01-05',
+    value: 320.75,
+  },
+  {
+    id: 3,
+    name: 'Uber',
+    type: 'Despesa',
+    category: 'Transporte',
+    method: 'Cartão de Crédito',
+    date: '2023-01-08',
+    value: 45.9,
+  },
+  {
+    id: 4,
+    name: 'Venda de notebook usado',
+    type: 'Ganho',
+    category: 'Venda',
+    method: 'Pix',
+    date: '2023-01-10',
+    value: 1200,
+  },
+  {
+    id: 5,
+    name: 'Conta de luz',
+    type: 'Despesa',
+    category: 'Moradia',
+    method: 'Boleto',
+    date: '2023-01-15',
+    value: 189.3,
+  },
+  {
+    id: 6,
+    name: 'Curso de programação',
+    type: 'Despesa',
+    category: 'Educação',
+    method: 'Transferência',
+    date: '2023-01-20',
+    value: 497,
+  },
+];

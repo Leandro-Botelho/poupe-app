@@ -1,6 +1,6 @@
-import { ISelectCombos } from '../interface/selectCombo.interface';
+import { ISelectCombos } from '../interface/select-combo.interface';
 
-export const CATEGORIES: ISelectCombos[] = [
+export const CATEGORIES_COMBO: ISelectCombos[] = [
   { value: 'leisure', viewValue: 'Pix' },
   { value: 'food', viewValue: 'Alimentação' },
   { value: 'expenses', viewValue: 'Despesas' },

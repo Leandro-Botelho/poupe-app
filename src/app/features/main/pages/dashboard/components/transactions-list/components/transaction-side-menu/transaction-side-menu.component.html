@@ -1,0 +1,39 @@
+<div class="transaction_container_row">
+  <div class="transaction_container">
+    <h4 class="transaction_title">Nome</h4>
+    <p class="transaction_description">{{ currentTransaction?.name }}</p>
+  </div>
+  <div class="transaction_container">
+    <h4 class="transaction_title">Status</h4>
+    <p class="transaction_description">
+      {{ currentTransaction?.type }}
+    </p>
+  </div>
+</div>
+
+<span class="divider"></span>
+
+<div class="transaction_container_row">
+  <div class="transaction_container">
+    <h4 class="transaction_title">Data</h4>
+    <p class="transaction_description">
+      {{ currentTransaction?.date | date : "dd/MM/yyyy" }}
+    </p>
+  </div>
+
+  <div class="transaction_container">
+    <h4 class="transaction_title">Valor</h4>
+    <p class="transaction_description">
+      <app-format-currency [amount]="currentTransaction?.value ?? 0" />
+    </p>
+  </div>
+</div>
+
+<span class="divider"></span>
+
+<div class="transaction_container">
+  <h4 class="transaction_title">Método de pagamento</h4>
+  <p class="transaction_description">
+    {{ currentTransaction?.method }}
+  </p>
+</div>

@@ -1,4 +1,4 @@
-import { ISelectCombos } from '../interface/selectCombo.interface';
+import { ISelectCombos } from '../interface/select-combo.interface';
 
 export const PAYMENT_TYPES: ISelectCombos[] = [
   { value: 'pix', viewValue: 'Pix' },
