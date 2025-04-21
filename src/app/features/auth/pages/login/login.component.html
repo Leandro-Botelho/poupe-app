@@ -27,7 +27,7 @@
       <input
         matInput
         formControlName="password"
-        [type]="hide ? 'password' : 'text'"
+        [type]="hide() ? 'password' : 'text'"
       />
       <button
         class="show_password_btn"
@@ -36,7 +36,7 @@
         (click)="showPassword()"
         type="button"
       >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
 
       <mat-error *ngIf="loginForm?.password?.hasError('required')">
@@ -50,3 +50,5 @@
     <button type="submit" class="btn_form">Entrar</button>
   </form>
 </app-form-auth>
+
+<app-loading *ngIf="isLoading()"></app-loading>

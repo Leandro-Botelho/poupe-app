@@ -11,7 +11,7 @@
   --light-gray-color: #b8b8b8;
   --text-color: #fff;
   --border-color: #333437;
-  --btn-background-secondary: #1F1F21;
+  --btn-background-secondary: #1f1f21;
 }
 
 * {
@@ -42,9 +42,11 @@ body {
   transition: all 0.3s ease-in-out;
   border: none;
   outline: none;
-
+  font-weight: 600;
+  font-size: 1.125rem;
+  cursor: pointer;
   &:hover {
-    opacity: 0.8;
+    background-color: var(--hover-blue-color);
   }
 }
 

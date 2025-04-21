@@ -65,7 +65,7 @@
       <input
         formControlName="password"
         matInput
-        [type]="hide ? 'password' : 'text'"
+        [type]="hide() ? 'password' : 'text'"
       />
       <button
         class="show_password_btn"
@@ -73,7 +73,7 @@
         matSuffix
         (click)="showPassword()"
       >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
 
       <mat-error *ngIf="registerForm.password?.hasError('required')">
@@ -87,3 +87,5 @@
     <button type="submit" class="btn_form">Cadastrar</button>
   </form>
 </app-form-auth>
+
+<app-loading *ngIf="isLoading()"></app-loading>

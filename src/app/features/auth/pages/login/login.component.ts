@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, signal } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { LoginFormTitleComponent } from '../../components/loginFormTitle/loginFormTitle.component';
 import { LoginValidatorService } from './service/loginValidator.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../../shared/service/auth/auth.service';
 import { FormAuthComponent } from '../../components/form-auth/form-auth.component';
+import { AuthService } from '../../../../shared/service/auth/auth.service';
+import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-login',
@@ -23,12 +23,14 @@ import { FormAuthComponent } from '../../components/form-auth/form-auth.componen
     MatIconModule,
     MatButtonModule,
     FormAuthComponent,
+    LoadingComponent,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
-  hide = true;
+export class LoginComponent implements OnDestroy {
+  hide = signal(true);
+  isLoading = signal(false);
 
   constructor(
     private readonly loginValidatorService: LoginValidatorService,
@@ -41,20 +43,32 @@ export class LoginComponent implements OnInit {
   }
 
   showPassword() {
-    this.hide = !this.hide;
+    this.hide.update((prev) => !prev);
   }
 
-  ngOnInit(): void {}
-
   onSubmit(): void {
-    console.log('Login form submitted');
-    // if (!this.loginForm.loginFormGroup.valid) return;
+    if (!this.loginForm.loginFormGroup.valid) return;
 
-    // const credentials = {
-    //   email: this.loginForm.loginFormGroup.value.email,
-    //   password: this.loginForm.loginFormGroup.value.password,
-    // };
+    this.isLoading.update(() => true);
 
-    // this.authService.login();
+    const credentials = {
+      email: this.loginForm.loginFormGroup.value.email,
+      password: this.loginForm.loginFormGroup.value.password,
+    };
+
+    this.authService.auth(credentials).subscribe({
+      next: (response) => {
+        localStorage.setItem('token', response.accessToken);
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error) => {
+        console.error('Login failed', error);
+      },
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.loginForm.loginFormGroup.reset();
+    this.isLoading.update(() => false);
   }
 }

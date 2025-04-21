@@ -3,8 +3,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
+import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { AuthService } from '../../shared/service/auth/auth.service';
-import { LogoComponent } from "../../shared/components/logo/logo.component";
 
 @Component({
   selector: 'app-main',
@@ -18,7 +18,7 @@ import { LogoComponent } from "../../shared/components/logo/logo.component";
     MatButtonModule,
     MatMenuModule,
     LogoComponent,
-],
+  ],
 })
 export class MainComponent implements OnInit {
   constructor(private readonly authService: AuthService) {}

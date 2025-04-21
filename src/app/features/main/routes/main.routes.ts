@@ -1,10 +1,12 @@
 import { Routes } from '@angular/router';
 import { MainComponent } from '../main.component';
+import { authGuard } from '../../../shared/guards/auth.guards';
 
 export const MAIN_ROUTES: Routes = [
   {
     path: '',
     component: MainComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'transactions',

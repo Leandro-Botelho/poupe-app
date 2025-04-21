@@ -1,0 +1,7 @@
+<div *ngIf="isVisible()" @fadeOut class="toast toast-{{ type }}">
+  <div class="toast-content">
+    {{ message }}
+  </div>
+
+  <button class="toast-close" (click)="closeToast()">X</button>
+</div>
