@@ -5,6 +5,12 @@
   gap: 2rem;
 }
 
+.menu_container {
+  display: flex;
+  align-items: center;
+  gap: 2rem
+}
+
 .dashboard_main {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -46,11 +52,11 @@
   flex: 1;
 }
 
-.account_graphics_container {
+/* .account_graphics_container {
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 2rem;
-}
+} */
 
 @media (max-width: 1024px) {
   .dashboard_main {

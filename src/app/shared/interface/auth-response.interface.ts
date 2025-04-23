@@ -3,6 +3,7 @@ export interface IAuthResponse {
     id: number;
     email: string;
     name: string;
+    accountId: number;
   };
   accessToken: string;
 }

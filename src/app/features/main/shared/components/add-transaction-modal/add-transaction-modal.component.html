@@ -7,22 +7,64 @@
   [formGroup]="transactionForm.transactionFormGroup"
   (ngSubmit)="onSubmit()"
 >
-  <mat-form-field>
-    <mat-label>Título</mat-label>
-    <input matInput formControlName="name" />
+  <div class="input_container">
+    <mat-form-field>
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="name" />
 
-    <mat-error *ngIf="transactionForm.name"> Título é obrigatório. </mat-error>
-    <mat-error *ngIf="transactionForm.name?.hasError('minlength')">
-      Mínimo 5 caracteres.
-    </mat-error>
-  </mat-form-field>
+      <mat-error *ngIf="transactionForm.name">
+        Título é obrigatório.
+      </mat-error>
+      <mat-error *ngIf="transactionForm.name?.hasError('minlength')">
+        Mínimo 5 caracteres.
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Valor</mat-label>
-    <input matInput formControlName="amount" type="number" />
+    <mat-form-field>
+      <mat-label>Valor</mat-label>
+      <input matInput formControlName="amount" type="number" />
 
-    <mat-error *ngIf="transactionForm.amount"> Valor é obrigatório. </mat-error>
-  </mat-form-field>
+      <mat-error *ngIf="transactionForm.amount">
+        Valor é obrigatório.
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="input_container">
+    <mat-form-field>
+      <mat-label>Categoria</mat-label>
+      <mat-select formControlName="category">
+        @for (category of categories; track category.value) {
+        <mat-option [value]="category.value">{{
+          category.viewValue
+        }}</mat-option>
+        }
+      </mat-select>
+
+      <mat-error *ngIf="transactionForm.paymentType">
+        Categoria é obrigatória.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Data da transação</mat-label>
+      <input
+        formControlName="date"
+        matInput
+        [matDatepicker]="picker"
+        placeholder="DD/MM/YYYY"
+      />
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+
+      <mat-error *ngIf="transactionForm.date?.hasError('required')">
+        Data é obrigatória.
+      </mat-error>
+    </mat-form-field>
+  </div>
 
   <mat-form-field>
     <mat-label>Tipo de transação</mat-label>
@@ -49,35 +91,6 @@
 
     <mat-error *ngIf="transactionForm.paymentType">
       Método de pagamento é obrigatório.
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Categoria</mat-label>
-    <mat-select formControlName="paymentType">
-      @for (category of categories; track category.value) {
-      <mat-option [value]="category.value">{{ category.viewValue }}</mat-option>
-      }
-    </mat-select>
-
-    <mat-error *ngIf="transactionForm.paymentType">
-      Categoria é obrigatória.
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Data da transação</mat-label>
-    <input
-      formControlName="date"
-      matInput
-      [matDatepicker]="picker"
-      placeholder="DD/MM/YYYY"
-    />
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-
-    <mat-error *ngIf="transactionForm.date?.hasError('required')">
-      Data é obrigatória.
     </mat-error>
   </mat-form-field>
 

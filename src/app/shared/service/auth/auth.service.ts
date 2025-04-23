@@ -26,7 +26,8 @@ export class AuthService {
   }
 
   logout() {
-    console.log('Logout clicked');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     this.route.navigate(['/auth/login']);
   }
 }

@@ -1,27 +1,49 @@
 <h3>Transações</h3>
 
-@for (transaction of transactions; track transaction.id) {
-<div class="transactions_list" (click)="openSideMenu(transaction)">
-  <div class="transactions_details">
-    <div class="transactions_details__icon gain">
-      <mat-icon #icon fontIcon="attach_money"></mat-icon>
-    </div>
+<ng-container *ngIf="transactions$() as transactions">
+  <ng-container *ngIf="transactions.length > 0; else emptyTransactions">
+    <ng-template #transactionsTemplate>
+      @for (transaction of transactions; track transaction.id) {
+      <div class="transactions_list" (click)="openSideMenu(transaction)">
+        <div class="transactions_details">
+          <div
+            class="transactions_details__icon {{ transaction.transactionType }}"
+          >
+            <mat-icon fontIcon="attach_money"></mat-icon>
+          </div>
 
-    <div class="transactions_info">
-      <p>{{ transaction.name }}</p>
-      <span>{{ transaction.date | date : "d MMM y" }}</span>
-    </div>
-  </div>
+          <div class="transactions_info">
+            <p>{{ transaction.name }}</p>
+            <span>{{ transaction.date | date : "d MMM y" }}</span>
+          </div>
+        </div>
 
-  <p class="amount received">
-    <app-format-currency [amount]="transaction.value" />
-  </p>
-</div>
+        <p
+          class="amount"
+          [ngClass]="{
+            received: transaction.transactionType === 'gain',
+            default: transaction.transactionType === 'investment',
+            loss: transaction.transactionType === 'expense'
+          }"
+        >
+          <app-format-currency [amount]="transaction.amount" />
+        </p>
+      </div>
+      }
+    </ng-template>
 
-}
+    <ng-container *ngTemplateOutlet="transactionsTemplate"></ng-container>
+  </ng-container>
+
+  <ng-template #emptyTransactions>
+    <p class="empty_transactions">Nenhuma transação encontrada.</p>
+  </ng-template>
+</ng-container>
 
 <app-side-menu (closed)="closeSideMenu()" [isOpen]="isOpenSideMenu()">
   <app-transaction-side-menu
     [currentTransaction]="currentTransaction()"
   ></app-transaction-side-menu>
 </app-side-menu>
+
+<app-loading *ngIf="isLoading"></app-loading>

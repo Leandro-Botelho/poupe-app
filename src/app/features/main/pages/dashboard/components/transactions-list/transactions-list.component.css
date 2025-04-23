@@ -18,7 +18,7 @@
   align-items: center;
   padding: 1.5rem 1rem;
   transition: all 0.3s ease;
-  cursor: pointer ;
+  cursor: pointer;
   &:hover {
     background-color: var(--secondary-color);
   }
@@ -69,6 +69,13 @@
 
 .default {
   color: var(--text-color);
+}
+
+.empty_transactions {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gray-color);
+  padding: 1rem 0;
 }
 
 @media (max-width: 768px) {

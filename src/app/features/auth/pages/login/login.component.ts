@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { FormAuthComponent } from '../../components/form-auth/form-auth.component';
 import { AuthService } from '../../../../shared/service/auth/auth.service';
 import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
-
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -59,6 +58,8 @@ export class LoginComponent implements OnDestroy {
     this.authService.auth(credentials).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.accessToken);
+        localStorage.setItem('user', JSON.stringify(response.user));
+
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {

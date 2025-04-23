@@ -8,7 +8,7 @@
 <div class="account_balance_details_container">
   <div class="account_balance_amount">
     <p class="amount_text" *ngIf="showAccountBalance()">
-      <app-format-currency [amount]="1274" />
+      <app-format-currency [amount]="accountBalance()" />
     </p>
 
     <p class="hidden_amount" *ngIf="!showAccountBalance()">***</p>

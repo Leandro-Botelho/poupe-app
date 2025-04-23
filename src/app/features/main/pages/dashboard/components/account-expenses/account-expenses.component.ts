@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CardAccountDetailsComponent } from '../../../../../../shared/components/card-account-details/card-account-details.component';
 import { MatIconModule } from '@angular/material/icon';
-import { FormatCurrencyComponent } from '../../../../../../shared/components/format-currency/format-currency.component';
 
 @Component({
   selector: 'app-account-expenses',
@@ -10,8 +9,17 @@ import { FormatCurrencyComponent } from '../../../../../../shared/components/for
   standalone: true,
   imports: [CardAccountDetailsComponent, MatIconModule],
 })
-export class AccountExpensesComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {}
+export class AccountExpensesComponent {
+  @Input({
+    required: true,
+  })
+  dashboardData: {
+    earnings: number;
+    expenses: number;
+    investment: number;
+  } = {
+    earnings: 0,
+    expenses: 0,
+    investment: 0,
+  };
 }

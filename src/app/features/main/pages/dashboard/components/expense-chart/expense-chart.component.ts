@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -9,33 +9,66 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [CommonModule, MatIconModule],
 })
-export class ExpenseChartComponent {
+export class ExpenseChartComponent implements OnChanges {
+  @Input({
+    required: true,
+  })
+  accountBalance: number = 0;
+
+  @Input({
+    required: true,
+  })
+  dashboardData: {
+    earnings: number;
+    expenses: number;
+    investment: number;
+  } = {
+    earnings: 0,
+    expenses: 0,
+    investment: 0,
+  };
+
   data = [
     {
       label: 'Ganhos',
-      value: 60,
+      value: 0,
       color: '#39be00',
       class: 'gain',
       icon: 'trending_up',
+      percent: 0,
     },
     {
       label: 'Gastos',
-      value: 20,
+      value: 0,
       color: '#e93030',
       class: 'expenses',
       icon: 'trending_down',
+      percent: 0,
     },
     {
       label: 'Investimento',
-      value: 20,
+      value: 0,
       color: '#FFF',
       class: 'investment',
       icon: 'attach_money',
+      percent: 0,
     },
   ];
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dashboardData']) {
+      this.data[0].value = this.dashboardData.earnings;
+      this.data[1].value = this.dashboardData.expenses;
+      this.data[2].value = this.dashboardData.investment;
+
+      this.data[0].percent = (this.data[0].value / this.accountBalance) * 100;
+      this.data[1].percent = (this.data[1].value / this.accountBalance) * 100;
+      this.data[2].percent = (this.data[2].value / this.accountBalance) * 100;
+    }
+  }
+
   getConicGradient(): string {
-    const total = this.data.reduce((sum, item) => sum + item.value, 0);
+    const total = this.accountBalance || 1;
     let currentPercent = 0;
     const gradientParts = this.data.map((item) => {
       const start = currentPercent;

@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  LOCALE_ID,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,6 +16,7 @@ import { PAYMENT_TYPES } from '../../../../../../shared/constants/paymentTypes-c
 import { TransactionValidatorService } from '../../../../shared/service/transactionValidator.service';
 import { CATEGORIES_COMBO } from '../../../../../../shared/constants/categories-combo';
 import { TRANSACTIONS_COMBO } from '../../../../../../shared/constants/transactions-combo';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 @Component({
   selector: 'app-edit-transaction',
@@ -25,6 +32,10 @@ import { TRANSACTIONS_COMBO } from '../../../../../../shared/constants/transacti
     FormsModule,
     ReactiveFormsModule,
     MatDatepickerModule,
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
   ],
   standalone: true,
 })

@@ -1,31 +1,58 @@
 <div class="dashboard_header">
   <h1 class="dashboard_main_title">Dashboard</h1>
-  <div class="months_menu">
-    <button mat-button [matMenuTriggerFor]="menu">
-      {{ currentMonth() }}
-      <mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
-    </button>
-    <mat-menu #menu="matMenu" style="background-color: blue">
-      @for (month of months; track month.value) {
-      <button mat-menu-item (click)="changeMonth(month.value)">
-        {{ month.label }}
+
+  <div class="menu_container">
+    <div class="months_menu">
+      <button mat-button [matMenuTriggerFor]="menuMonths">
+        {{ currentMonth().label }}
+        <mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
       </button>
-      }
-    </mat-menu>
+      <mat-menu #menuMonths="matMenu">
+        @for (month of months; track month.value) {
+        <button mat-menu-item (click)="changeMonth(month.value)">
+          {{ month.label }}
+        </button>
+        }
+      </mat-menu>
+    </div>
+
+    <div>
+      <button mat-button [matMenuTriggerFor]="menu">
+        {{ currentYear() }}
+        <mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
+      </button>
+      <mat-menu #menu="matMenu" style="background-color: blue">
+        @for (year of years; track year) {
+        <button mat-menu-item (click)="changeYear(year)">
+          {{ year }}
+        </button>
+        }
+      </mat-menu>
+    </div>
   </div>
 </div>
 
 <main class="dashboard_main">
   <div class="account_information_container">
-    <app-account-balance></app-account-balance>
+    <app-account-balance
+      (accountBalanceChange)="getAccountBalance($event)"
+    ></app-account-balance>
 
-    <app-account-expenses></app-account-expenses>
+    <app-account-expenses
+      [dashboardData]="dashboardData()"
+    ></app-account-expenses>
 
     <div class="account_graphics_container">
-      <app-expense-chart></app-expense-chart>
-      <app-category-expenses></app-category-expenses>
+      <app-expense-chart
+        [dashboardData]="dashboardData()"
+        [accountBalance]="accountBalance()"
+      ></app-expense-chart>
+      <!-- <app-category-expenses></app-category-expenses> -->
     </div>
   </div>
 
-  <app-transactions-list></app-transactions-list>
+  <app-transactions-list
+    [month]="currentMonth().value"
+    [year]="currentYear()"
+  ></app-transactions-list>
 </main>

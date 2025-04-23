@@ -1,6 +1,4 @@
-import { ITransactions } from '../interface/transactions.interface';
-
-export const TRANSACTIONS_LIST: ITransactions[] = [
+export const TRANSACTIONS_LIST = [
   {
     id: 1,
     name: 'Salário',

@@ -1,9 +1,10 @@
 import { Component, Input, LOCALE_ID, OnInit } from '@angular/core';
-import { ITransactions } from '../../../../../../../../shared/interface/transactions.interface';
+
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import localePt from '@angular/common/locales/pt';
 import { FormatCurrencyComponent } from '../../../../../../../../shared/components/format-currency/format-currency.component';
+import { ITransactionPayload } from '../../../../../../../../shared/interface/transaction/transaction-payload.interface';
 
 registerLocaleData(localePt, 'pt-br');
 
@@ -25,5 +26,5 @@ export class TransactionSideMenuComponent {
   @Input({
     required: true,
   })
-  currentTransaction: ITransactions | null = null;
+  currentTransaction: ITransactionPayload | null = null;
 }

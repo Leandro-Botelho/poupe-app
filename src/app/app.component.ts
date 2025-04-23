@@ -23,7 +23,6 @@ export class AppComponent implements AfterViewInit {
   constructor(private toastService: ToastService) {}
 
   ngAfterViewInit() {
-    console.log('ViewContainerRef definido:', this.toastContainer); // Debug
     this.toastService.setRootViewContainerRef(this.toastContainer);
   }
 }
