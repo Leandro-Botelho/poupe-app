@@ -1,11 +1,27 @@
 <div class="transactions_header">
   <h1>Transações</h1>
-  <app-button text="Adicionar transação" (click)="openAddTransactionModal()">
-    <mat-icon fontIcon="compare_arrows" style="rotate: 90deg"></mat-icon>
-  </app-button>
+  <div class="transactions_header_actions">
+    <app-button text="Adicionar transação" (click)="openAddTransactionModal()">
+      <mat-icon fontIcon="compare_arrows" style="rotate: 90deg"></mat-icon>
+    </app-button>
+
+    <app-month-year-menu
+      (changeMonthEmit)="changeMonth($event)"
+      (changeYearEmit)="changeYear($event)"
+      [month]="currentMonth().label"
+      [year]="currentYear()"
+      [years]="years"
+    />
+  </div>
 </div>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table
+  id="transactions_table"
+  mat-table
+  [dataSource]="transactionsList$()"
+  class="mat-elevation-z8"
+  *ngIf="transactionsList$().length > 0; else emptyTransactions"
+>
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Nome</th>
     <td mat-cell *matCellDef="let element">{{ element.name }}</td>
@@ -13,17 +29,23 @@
 
   <ng-container matColumnDef="type">
     <th mat-header-cell *matHeaderCellDef>Tipo</th>
-    <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+    <td mat-cell *matCellDef="let element">
+      {{ element.transactionType | transactionType }}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="category">
     <th mat-header-cell *matHeaderCellDef>Categoria</th>
-    <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+    <td mat-cell *matCellDef="let element">
+      {{ element.category | categoryType }}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="method">
     <th mat-header-cell *matHeaderCellDef>Método</th>
-    <td mat-cell *matCellDef="let element">{{ element.method }}</td>
+    <td mat-cell *matCellDef="let element">
+      {{ element.paymentType | paymentMethod }}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="date">
@@ -36,7 +58,7 @@
   <ng-container matColumnDef="value">
     <th mat-header-cell *matHeaderCellDef>Valor</th>
     <td mat-cell *matCellDef="let element">
-      <app-format-currency [amount]="element.value" />
+      <app-format-currency [amount]="element.amount" />
     </td>
   </ng-container>
 
@@ -47,12 +69,16 @@
         <button
           class="action_btn delete"
           mat-icon-button
-          (click)="openDeleteModal()"
+          (click)="openDeleteModal(element)"
         >
           <mat-icon>delete</mat-icon>
         </button>
 
-        <button class="action_btn" mat-icon-button (click)="openSideMenu()">
+        <button
+          class="action_btn"
+          mat-icon-button
+          (click)="openSideMenu(element)"
+        >
           <mat-icon>mode_edit</mat-icon>
         </button>
       </div>
@@ -63,15 +89,27 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 
+<app-responsive-card
+  (handleDeleteEvent)="openDeleteModal($event)"
+  (handleEditEvent)="openSideMenu($event)"
+  (handleModalEvent)="openAddTransactionModal()"
+  [transactions]="transactionsList$()"
+/>
+
+<ng-template #emptyTransactions>
+  <p class="emptyTransactions">Nenhuma transação encontrada</p>
+</ng-template>
+
 <app-side-menu [isOpen]="isOpenSideBarMenu()" (closed)="closeMenu()">
   <app-edit-transaction
+    [selectedTransaction]="selectedTransaction()"
     (closeSideBarEvent)="closeMenu()"
   ></app-edit-transaction>
 </app-side-menu>
 
 <app-modal [isOpen]="isOpenDeleteModal()" (onClose)="closeDeleteModal()">
   <app-delete-transaction
-    [transactionId]="10"
+    [transaction]="selectedTransaction()"
     (closeModalEvent)="closeDeleteModal()"
   ></app-delete-transaction>
 </app-modal>

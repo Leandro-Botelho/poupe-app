@@ -19,8 +19,8 @@ import {
 import { FormAuthComponent } from '../../components/form-auth/form-auth.component';
 import { Router } from '@angular/router';
 import { RegisterService } from './service/register.service';
-import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
 import { ToastService } from '../../../../shared/service/toast/toast.service';
+import { LoadingService } from '../../../../shared/service/loading/loading.service';
 
 @Component({
   selector: 'app-register',
@@ -35,7 +35,6 @@ import { ToastService } from '../../../../shared/service/toast/toast.service';
     MatButtonModule,
     MatDatepickerModule,
     FormAuthComponent,
-    LoadingComponent,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -48,13 +47,13 @@ import { ToastService } from '../../../../shared/service/toast/toast.service';
 })
 export class RegisterComponent {
   hide = signal(true);
-  isLoading = signal(false);
 
   constructor(
     private readonly registerValidatorService: RegisterValidatorService,
     private readonly router: Router,
     private readonly registerService: RegisterService,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly loadingService: LoadingService
   ) {}
 
   get registerForm() {
@@ -64,7 +63,7 @@ export class RegisterComponent {
   onSubmit(): void {
     if (!this.registerValidatorService.registerFormGroup.valid) return;
 
-    this.isLoading.update(() => true);
+    this.loadingService.show();
 
     const credentials = {
       email: this.registerValidatorService.registerFormGroup.value.email,
@@ -80,11 +79,11 @@ export class RegisterComponent {
           'Usuário cadastrado com sucesso!',
           'success'
         );
-        this.isLoading.update(() => false);
+        this.loadingService.hide();
         this.router.navigate(['/auth/login']);
       },
       error: (error) => {
-        this.isLoading.update(() => false);
+        this.loadingService.hide();
         console.error(error);
       },
     });

@@ -1,0 +1,27 @@
+<div>
+  <button mat-button [matMenuTriggerFor]="menuMonths">
+    {{ month }}
+    <mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
+  </button>
+  <mat-menu #menuMonths="matMenu">
+    @for (month of months; track month.value) {
+    <button mat-menu-item (click)="changeMonthEmit.emit(month.value)">
+      {{ month.label }}
+    </button>
+    }
+  </mat-menu>
+</div>
+
+<div>
+  <button mat-button [matMenuTriggerFor]="menu">
+    {{ year }}
+    <mat-icon fontIcon="keyboard_arrow_down"></mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    @for (year of years; track year) {
+    <button mat-menu-item (click)="changeYearEmit.emit(year)">
+      {{ year }}
+    </button>
+    }
+  </mat-menu>
+</div>

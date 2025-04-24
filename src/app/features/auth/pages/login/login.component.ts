@@ -9,7 +9,7 @@ import { LoginValidatorService } from './service/loginValidator.service';
 import { Router } from '@angular/router';
 import { FormAuthComponent } from '../../components/form-auth/form-auth.component';
 import { AuthService } from '../../../../shared/service/auth/auth.service';
-import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
+import { LoadingService } from '../../../../shared/service/loading/loading.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -22,19 +22,18 @@ import { LoadingComponent } from '../../../../shared/components/loading/loading.
     MatIconModule,
     MatButtonModule,
     FormAuthComponent,
-    LoadingComponent,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnDestroy {
   hide = signal(true);
-  isLoading = signal(false);
 
   constructor(
     private readonly loginValidatorService: LoginValidatorService,
     private readonly authService: AuthService,
-    private router: Router
+    private router: Router,
+    private readonly loadingService: LoadingService
   ) {}
 
   get loginForm() {
@@ -48,7 +47,7 @@ export class LoginComponent implements OnDestroy {
   onSubmit(): void {
     if (!this.loginForm.loginFormGroup.valid) return;
 
-    this.isLoading.update(() => true);
+    this.loadingService.show();
 
     const credentials = {
       email: this.loginForm.loginFormGroup.value.email,
@@ -59,7 +58,7 @@ export class LoginComponent implements OnDestroy {
       next: (response) => {
         localStorage.setItem('token', response.accessToken);
         localStorage.setItem('user', JSON.stringify(response.user));
-
+        this.loadingService.hide();
         this.router.navigate(['/dashboard']);
       },
       error: (error) => {
@@ -70,6 +69,5 @@ export class LoginComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.loginForm.loginFormGroup.reset();
-    this.isLoading.update(() => false);
   }
 }

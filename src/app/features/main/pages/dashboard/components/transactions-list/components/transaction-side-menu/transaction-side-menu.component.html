@@ -6,7 +6,7 @@
   <div class="transaction_container">
     <h4 class="transaction_title">Status</h4>
     <p class="transaction_description">
-      {{ currentTransaction?.transactionType }}
+      {{ currentTransaction?.transactionType | transactionType }}
     </p>
   </div>
 </div>
@@ -34,6 +34,6 @@
 <div class="transaction_container">
   <h4 class="transaction_title">Método de pagamento</h4>
   <p class="transaction_description">
-    {{ currentTransaction?.paymentType }}
+    {{ currentTransaction?.paymentType | paymentMethod }}
   </p>
 </div>

@@ -1,12 +1,9 @@
 import {
   Component,
-  OnInit,
   LOCALE_ID,
   signal,
   Input,
-  effect,
   OnChanges,
-  SimpleChange,
   SimpleChanges,
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,16 +11,13 @@ import localePt from '@angular/common/locales/pt';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import { TRANSACTIONS_LIST } from '../../../../../../shared/constants/transactions';
 import { FormatCurrencyComponent } from '../../../../../../shared/components/format-currency/format-currency.component';
-import {
-  MAT_DATE_LOCALE,
-  provideNativeDateAdapter,
-} from '@angular/material/core';
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { SideMenuComponent } from '../../../../../../shared/components/side-menu/side-menu.component';
 import { TransactionSideMenuComponent } from './components/transaction-side-menu/transaction-side-menu.component';
 import { TransactionService } from '../../../../../../shared/service/transaction/transaction.service';
-import { DashboardContextService } from '../../../../../../shared/service/dashboard/dashboard-context.service';
 import { ITransactionPayload } from '../../../../../../shared/interface/transaction/transaction-payload.interface';
-import { LoadingComponent } from '../../../../../../shared/components/loading/loading.component';
+import { LoadingService } from '../../../../../../shared/service/loading/loading.service';
+import { UserLocalStorageService } from '../../../../../../shared/service/user-local-storage.service';
 
 registerLocaleData(localePt, 'pt-br');
 
@@ -38,7 +32,6 @@ registerLocaleData(localePt, 'pt-br');
     CommonModule,
     SideMenuComponent,
     TransactionSideMenuComponent,
-    LoadingComponent,
   ],
   providers: [
     provideNativeDateAdapter(),
@@ -48,12 +41,12 @@ registerLocaleData(localePt, 'pt-br');
     },
   ],
 })
-export class TransactionsListComponent implements OnInit, OnChanges {
-  transactions = TRANSACTIONS_LIST;
+export class TransactionsListComponent implements OnChanges {
+  // transactions = TRANSACTIONS_LIST;
   isOpenSideMenu = signal(false);
   currentTransaction = signal<ITransactionPayload | null>(null);
   transactions$ = signal<ITransactionPayload[]>([]);
-  currentDashboardId = 0;
+  accountId = 0;
 
   @Input({
     required: true,
@@ -64,48 +57,44 @@ export class TransactionsListComponent implements OnInit, OnChanges {
   })
   month!: number;
 
-  isLoading = false;
-
   constructor(
     private readonly transactionService: TransactionService,
-    private readonly dashboardContextService: DashboardContextService
-  ) {
-    effect(() => {
-      const dashboardId = this.dashboardContextService.dashboardId;
+    private readonly loadingService: LoadingService,
+    private readonly userLocalStorageService: UserLocalStorageService
+  ) {}
 
-      if (dashboardId) {
-        this.currentDashboardId = dashboardId;
-        return this.transactionsList(dashboardId);
-      }
-    });
+  ngOnInit() {
+    const userStorage = this.userLocalStorageService.getUser();
+    if (!userStorage) return;
+
+    this.accountId = userStorage.accountId;
+
+    this.transactionsList(userStorage.accountId);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (this.currentDashboardId > 0)
-      return this.transactionsList(this.currentDashboardId);
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['year'] || changes['month']) {
+      this.transactionsList(this.accountId);
+    }
   }
 
-  ngOnInit() {}
-
-  transactionsList(dashboardId: number) {
+  transactionsList(accountId: number) {
+    this.loadingService.show();
     const transactionsParams = {
-      dashboardId,
+      accountId,
       year: this.year,
       month: this.month,
     };
 
-    this.isLoading = true;
     this.transactionService
       .getTransactions(transactionsParams)
       .subscribe((response) => {
         this.transactions$.set(response);
-
-        this.isLoading = false;
+        this.loadingService.hide();
       });
   }
 
   openSideMenu(transaction: ITransactionPayload) {
-    console.log(transaction);
     this.currentTransaction.set(transaction);
     this.isOpenSideMenu.update((prev) => !prev);
   }

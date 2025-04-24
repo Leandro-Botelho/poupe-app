@@ -10,10 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [CommonModule, MatIconModule],
 })
 export class ExpenseChartComponent implements OnChanges {
-  @Input({
-    required: true,
-  })
-  accountBalance: number = 0;
+  totalAmount = 0;
 
   @Input({
     required: true,
@@ -57,18 +54,25 @@ export class ExpenseChartComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['dashboardData']) {
+      const total =
+        this.dashboardData.earnings +
+        this.dashboardData.expenses +
+        this.dashboardData.investment;
+
       this.data[0].value = this.dashboardData.earnings;
       this.data[1].value = this.dashboardData.expenses;
       this.data[2].value = this.dashboardData.investment;
 
-      this.data[0].percent = (this.data[0].value / this.accountBalance) * 100;
-      this.data[1].percent = (this.data[1].value / this.accountBalance) * 100;
-      this.data[2].percent = (this.data[2].value / this.accountBalance) * 100;
+      this.data[0].percent = (this.data[0].value / total) * 100;
+      this.data[1].percent = (this.data[1].value / total) * 100;
+      this.data[2].percent = (this.data[2].value / total) * 100;
+
+      this.totalAmount = total;
     }
   }
 
   getConicGradient(): string {
-    const total = this.accountBalance || 1;
+    const total = this.totalAmount || 1;
     let currentPercent = 0;
     const gradientParts = this.data.map((item) => {
       const start = currentPercent;

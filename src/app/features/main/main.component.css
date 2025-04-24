@@ -1,4 +1,4 @@
-:host{
+:host {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -24,6 +24,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  text-decoration: none;
 }
 
 .main_logo_title {
@@ -93,7 +94,7 @@
   }
 }
 
-.menu_item_button{
+.menu_item_button {
   width: 100%;
 }
 

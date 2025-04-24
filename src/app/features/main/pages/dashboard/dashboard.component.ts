@@ -1,4 +1,11 @@
-import { Component, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  Injector,
+  OnInit,
+  runInInjectionContext,
+  signal,
+} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ExpenseChartComponent } from './components/expense-chart/expense-chart.component';
@@ -10,7 +17,14 @@ import { MONTHS } from '../../../../shared/constants/months';
 import { DashboardService } from '../../../../shared/service/dashboard/dashboard.service';
 import { tap } from 'rxjs';
 import { IDashboardData } from '../../../../shared/interface/dashboard/get-dashboard-data.interface';
-import { DashboardContextService } from '../../../../shared/service/dashboard/dashboard-context.service';
+import { MonthYearMenuComponent } from '../../../../shared/components/month-year-menu/month-year-menu.component';
+import { UserLocalStorageService } from '../../../../shared/service/user-local-storage.service';
+
+interface IGetDashboardDataParams {
+  accountId: number;
+  year: number;
+  month: number;
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -26,6 +40,7 @@ import { DashboardContextService } from '../../../../shared/service/dashboard/da
     AccountBalanceComponent,
     AccountExpensesComponent,
     CommonModule,
+    MonthYearMenuComponent,
   ],
 })
 export class DashboardComponent implements OnInit {
@@ -48,10 +63,14 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private readonly dashboardService: DashboardService,
-    private dashboardContextService: DashboardContextService
+    private readonly userLocalStorageService: UserLocalStorageService,
+    private readonly injector: Injector
   ) {}
 
   ngOnInit() {
+    const userStorage = this.userLocalStorageService.getUser();
+    if (!userStorage) return;
+
     const month = new Date().getMonth() + 1;
     const year = new Date().getFullYear();
 
@@ -61,25 +80,49 @@ export class DashboardComponent implements OnInit {
     });
     this.currentYear.set(year);
 
-    const userStorage = JSON.parse(localStorage.getItem('user') || '{}');
-
-    const params = {
+    const params: IGetDashboardDataParams = {
       accountId: userStorage.accountId,
       year,
       month: this.months[month - 1].value,
     };
 
+    this.getDashboardData(params);
+
+    runInInjectionContext(this.injector, () => {
+      effect(() => {
+        const selectedMonth = this.currentMonth().value;
+        const selectedYear = this.currentYear();
+
+        const params: IGetDashboardDataParams = {
+          accountId: userStorage.accountId,
+          year: selectedYear,
+          month: selectedMonth,
+        };
+
+        this.getDashboardData(params);
+      });
+    });
+  }
+
+  getDashboardData(params: IGetDashboardDataParams) {
     this.dashboardService
       .getDashboardData(params)
       .pipe(
         tap((data: IDashboardData) => {
+          if (!data) {
+            this.dashboardData.set({
+              earnings: 0,
+              expenses: 0,
+              investment: 0,
+            });
+            return;
+          }
+
           this.dashboardData.set({
             earnings: data.earnings,
             expenses: data.expenses,
             investment: data.investment,
           });
-
-          this.dashboardContextService.setDashboardId(data.id);
         })
       )
       .subscribe();

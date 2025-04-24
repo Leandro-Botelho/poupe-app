@@ -63,3 +63,11 @@
   font-weight: 600;
   color: var(--text-color);
 }
+
+@media (max-width: 1024px) {
+  .account_balance_details_container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+}

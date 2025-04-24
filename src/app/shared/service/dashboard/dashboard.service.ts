@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { IDashboardData } from '../../interface/dashboard/get-dashboard-data.interface';
 
 interface IGetDashboardDataParams {
-  accountId: string;
+  accountId: number;
   year: number;
   month: number;
 }

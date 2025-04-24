@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.mat-mdc-menu-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  border: 1px solid var(--gray-color);
+  border-radius: 6px;
+  padding: 0.5rem;
+  width: 140px;
+  color: var(--text-color);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    background-color: var(--secondary-color);
+  }
+}
+
+.mat-mdc-menu-item {
+  width: 140px;
+}

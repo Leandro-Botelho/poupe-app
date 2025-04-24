@@ -7,7 +7,7 @@ import {
   Output,
   signal,
 } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MAT_DATE_LOCALE,
   provideNativeDateAdapter,
@@ -23,8 +23,8 @@ import { CATEGORIES_COMBO } from '../../../../../shared/constants/categories-com
 import { TRANSACTIONS_COMBO } from '../../../../../shared/constants/transactions-combo';
 import { TransactionService } from '../../../../../shared/service/transaction/transaction.service';
 import { IAddTransactionPayload } from '../../../../../shared/interface/transaction/add-transaction.payload.interface';
-import { DashboardContextService } from '../../../../../shared/service/dashboard/dashboard-context.service';
 import { ToastService } from '../../../../../shared/service/toast/toast.service';
+import { LoadingService } from '../../../../../shared/service/loading/loading.service';
 
 @Component({
   selector: 'app-add-transaction-modal',
@@ -52,9 +52,9 @@ export class AddTransactionModal implements OnInit {
   categories = CATEGORIES_COMBO;
   transactions = TRANSACTIONS_COMBO;
   paymentTypes = PAYMENT_TYPES;
+  form!: FormGroup;
 
   @Output() closeModalEvent = new EventEmitter<void>();
-
   closeModal() {
     this.closeModalEvent.emit();
   }
@@ -62,53 +62,52 @@ export class AddTransactionModal implements OnInit {
   constructor(
     private readonly transactionValidatorService: TransactionValidatorService,
     private readonly transactionService: TransactionService,
-    private readonly dashboardContextService: DashboardContextService,
-    private readonly toastService: ToastService
+    private readonly toastService: ToastService,
+    private readonly loadingService: LoadingService
   ) {}
 
-  get transactionForm() {
-    return this.transactionValidatorService;
+  ngOnInit(): void {
+    this.form = this.transactionValidatorService.transactionGroup();
   }
 
-  ngOnInit(): void {}
-
   onSubmit(): void {
-    if (!this.transactionValidatorService.transactionFormGroup.valid) return;
+    if (!this.form.valid) return;
 
-    const dashboardId = this.dashboardContextService.dashboardId;
+    this.loadingService.show();
+
     const accountId = JSON.parse(
       localStorage.getItem('user') || '{}'
     )?.accountId;
 
     const transactionPayload: IAddTransactionPayload = {
-      name: this.transactionValidatorService.transactionFormGroup.value.name,
-      amount:
-        this.transactionValidatorService.transactionFormGroup.value.amount,
-      date: this.transactionValidatorService.transactionFormGroup.value.date,
-      paymentType:
-        this.transactionValidatorService.transactionFormGroup.value.paymentType,
-      transactionType:
-        this.transactionValidatorService.transactionFormGroup.value
-          .transactionType,
-      category:
-        this.transactionValidatorService.transactionFormGroup.value.category,
+      name: this.form.value.name,
+      amount: this.form.value.amount,
+      date: this.form.value.date,
+      paymentType: this.form.value.paymentType,
+      transactionType: this.form.value.transactionType,
+      category: this.form.value.category,
       accountId,
-      dashboardId,
     };
 
     this.transactionService.addTransaction(transactionPayload).subscribe({
       next: () => {
         setTimeout(() => {
-          this.transactionValidatorService.transactionFormGroup.reset();
+          this.form.reset();
           this.closeModal();
           this.toastService.showMessage(
             'Transação adicionada com sucesso',
             'success'
           );
+          this.loadingService.hide();
         }, 2000);
       },
       error: (error) => {
         console.error('Error adding transaction:', error);
+        this.loadingService.hide();
+        this.toastService.showMessage(
+          'Ocorreu um erro ao adicionar transação',
+          'error'
+        );
       },
     });
   }

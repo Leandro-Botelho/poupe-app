@@ -7,6 +7,10 @@ import { IAddTransactionPayload } from '../../interface/transaction/add-transact
 import { IGetTransactionsParams } from '../../interface/transaction/get-transactions-params.interface';
 import { ITransactionPayload } from '../../interface/transaction/transaction-payload.interface';
 
+interface IUpdateTransactionPayload extends IAddTransactionPayload {
+  id: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,7 +34,7 @@ export class TransactionService {
     transactionParams: IGetTransactionsParams
   ): Observable<ITransactionPayload[]> {
     const params = new HttpParams()
-      .set('dashboardId', transactionParams.dashboardId)
+      .set('accountId', transactionParams.accountId)
       .set('year', transactionParams.year)
       .set('month', transactionParams.month);
 
@@ -39,6 +43,17 @@ export class TransactionService {
       {
         params,
       }
+    );
+  }
+
+  deleteTransaction(transactionId: number) {
+    return this.httpClient.delete(`${BASE_URL}/transactions/${transactionId}`);
+  }
+
+  updateTransaction({ id, ...transactionsPayload }: IUpdateTransactionPayload) {
+    return this.httpClient.patch<ITransactionPayload>(
+      `${BASE_URL}/transactions/${id}`,
+      transactionsPayload
     );
   }
 }

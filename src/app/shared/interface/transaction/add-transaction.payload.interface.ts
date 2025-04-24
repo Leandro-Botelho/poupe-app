@@ -6,5 +6,4 @@ export interface IAddTransactionPayload {
   transactionType: string;
   category: string;
   accountId: number;
-  dashboardId: number;
 }

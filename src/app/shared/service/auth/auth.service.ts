@@ -4,6 +4,7 @@ import { BASE_URL } from '../../constants/baseUrl';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IAuthResponse } from '../../interface/auth-response.interface';
+import { UserLocalStorageService } from '../user-local-storage.service';
 
 interface ICredentials {
   email: string;
@@ -15,7 +16,8 @@ interface ICredentials {
 export class AuthService {
   constructor(
     private readonly route: Router,
-    private readonly httpClient: HttpClient
+    private readonly httpClient: HttpClient,
+    private readonly userLocalStorageService: UserLocalStorageService
   ) {}
 
   auth({ email, password }: ICredentials): Observable<IAuthResponse> {
@@ -26,8 +28,7 @@ export class AuthService {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    this.userLocalStorageService.removeUser();
     this.route.navigate(['/auth/login']);
   }
 }

@@ -1,10 +1,12 @@
 <div class="modal_delete_transaction">
   <h1 class="modal_title">Excluir transação</h1>
   <p class="modal_description">
-    Você tem certeza que deseja excluir essa transação? {{ transactionId }}
+    Você tem certeza que deseja excluir essa transação? {{ transaction?.name }}
   </p>
   <div class="modal_actions">
     <button class="modal_btn" (click)="closeModal()">Cancelar</button>
-    <button class="modal_btn modal_delete_btn">Deletar</button>
+    <button class="modal_btn modal_delete_btn" (click)="deleteTransaction()">
+      Deletar
+    </button>
   </div>
 </div>
