@@ -20,6 +20,8 @@
     </nav>
   </div>
 
+  <mat-icon (click)="toggleMenu()" class="responsive_menu">menu</mat-icon>
+
   <div class="main_user_menu">
     <button mat-button [matMenuTriggerFor]="menu">LB</button>
     <mat-menu #menu="matMenu">
@@ -27,5 +29,23 @@
     </mat-menu>
   </div>
 </header>
+
+<app-side-menu (closed)="toggleMenu()" [isOpen]="closed()">
+  <div class="side_menu_responsive">
+    <ul class="side_menu_links_container">
+      <li class="side_menu_link">
+        <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+      </li>
+
+      <li class="side_menu_link">
+        <a routerLink="/dashboard/transactions" routerLinkActive="active"
+          >Transações</a
+        >
+      </li>
+    </ul>
+
+    <button class="logout_button" (click)="handleLogout()">Sair</button>
+  </div>
+</app-side-menu>
 
 <router-outlet></router-outlet>

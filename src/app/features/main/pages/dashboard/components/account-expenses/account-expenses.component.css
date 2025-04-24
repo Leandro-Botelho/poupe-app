@@ -26,3 +26,8 @@
     gap: 2rem;
   }
 }
+@media (max-width: 468px) {
+  .second_account_details_box {
+    grid-template-columns: 1fr;
+  }
+}
